@@ -1,7 +1,7 @@
 console.log('yes')
 
 
-let mymap = L.map('mapid').setView([40.7, -94.5], 4);
+let mymap = L.map('mapid').setView([34.0522, -118.2437], 14);
 
 
 let streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -14,11 +14,11 @@ let streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{
 });
 // Then we add our 'graymap' tile layer to the map.
 streets.addTo(mymap);
-var circle = L.circle([51.508, -0.11], {
+var circle = L.circle([34.0522, -118.2437], {
     color: 'blue',
     fillColor: '#f03',
     fillOpacity: 0.5,
-    radius: 700
+    radius: 100
 }).addTo(mymap);
 
 var polygon = L.polygon([
