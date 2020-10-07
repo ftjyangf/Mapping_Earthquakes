@@ -1,3 +1,17 @@
 #mapid{
     height:600px;
 }
+
+i{
+    font-size: large;
+}
+
+.info{
+    text-align: center;
+    marign-right:2%
+}
+.leaflet-right{
+    width:7%;
+    background-color:honeydew;
+    margin-left: 2%;
+}

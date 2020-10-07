@@ -30,22 +30,69 @@ let basemap ={
 let map = L.map('mapid',{
     center:[40,-90],
     zoom:5,
-    layers:[streets]
+    layers:[statellatestreet]
 
 })
+
 
 L.control.layers(basemap).addTo(map)
 
 d3.json(past7days).then(d=>
 
     L.geoJson(d,{
-        pointToLayer:(feature,latlng)=>
-            L.marker(latlng)
+        pointToLayer:(feature,latlng)=>{
+        console.log(styleinfo)
+          return L.circleMarker(latlng)
                .bindPopup(`${feature.properties.place}`)
-    }).addTo(map)
 
 
+        },
+        style:styleinfo
+               
+            }
+  
 
 
-
+).addTo(map)
 )
+
+function getRadius(magnitude) {
+    if (magnitude === 0) {
+      return 1;
+    }
+    return magnitude * 4;
+  }
+
+  function styleinfo(feature){
+    return{
+    color: '#000000',
+    fillColor:getColor(feature.properties.mag),
+    opacity: 1,
+    fillOpacity: 1,
+    radius: getRadius(feature.properties.mag),
+    stroke:true,
+    weight:0.5
+
+    }
+}
+function getColor(magnitude) {
+    if (magnitude > 5) {
+      return "#ea2c2c";
+    }
+    if (magnitude > 4) {
+      return "#ea822c";
+    }
+    if (magnitude > 3) {
+      return "#ee9c00";
+    }
+    if (magnitude > 2) {
+      return "#eecc00";
+    }
+    if (magnitude > 1) {
+      return "#d4ee00";
+    }
+    return "#98ee00";
+  }
+
+
+
