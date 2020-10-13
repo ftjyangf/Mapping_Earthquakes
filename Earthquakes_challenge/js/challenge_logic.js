@@ -158,8 +158,6 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geoj
          style: styleinfo1
       }).addTo(majorEarthquakes) 
 
-    
-    
 
     
     
@@ -170,38 +168,65 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geoj
   })
 
 // Here we create a legend control object.
-var legend = L.control({
-  position: "bottomright"
+// var legend = L.control({
+//   position: "bottomright"
 
-});
+// });
 
-// Then add all the details for the legend
-legend.onAdd = function(map) {
-  let div = L.DomUtil.create("div", "info legend");
-    labels =[]
-  const magnitudes = [0, 1, 2, 3, 4, 5];
-  const colors = [
-    "#98ee00",
-    "#d4ee00",
-    "#eecc00",
-    "#ee9c00",
-    "#ea822c",
-    "#ea2c2c"
-  ];
+// // Then add all the details for the legend
+// legend.onAdd = function(map) {
+//   let div = L.DomUtil.create("div", "info legend");
+//     labels =[]
+//   const magnitudes = [0, 1, 2, 3, 4, 5];
+//   const colors = [
+//     "#98ee00",
+//     "#d4ee00",
+//     "#eecc00",
+//     "#ee9c00",
+//     "#ea822c",
+//     "#ea2c2c"
+//   ];
 
-// Looping through our intervals to generate a label with a colored square for each interval.
-  for (var i = 0; i < magnitudes.length; i++) {
-    div.innerHTML +=
+// // Looping through our intervals to generate a label with a colored square for each interval.
+//   for (var i = 0; i < magnitudes.length; i++) {
+//     div.innerHTML +=
     
-      '<i style="background-color:' + colors[i] + '"></i> ' +
-      magnitudes[i] + (magnitudes[i + 1] ? "&ndash;" + magnitudes[i + 1] + "<br>" : "+");
-    }    
-    return div;
-  };
+//       '<i style="background:' + colors[i] + '"></i> ' +
+//       magnitudes[i] + (magnitudes[i + 1] ? '&ndash;' + magnitudes[i + 1] + '<br>' : '+');
+//     }    
+//     return div;
+//   };
 
+ 
 
+  var legend = L.control({position:'bottomright'});
 
-
+  legend.onAdd = function(map){
+  
+  
+      var div =L.DomUtil.create('div','info Legend');
+      let magnitudes = [0, 1, 2, 3, 4, 5];
+      let colors = [
+        "#98ee00",
+        "#d4ee00",
+        "#eecc00",
+        "#ee9c00",
+        "#ea822c",
+        "#ea2c2c"
+      ];
+      
+          for(var i=0;i<magnitudes.length;i++){
+            div.innerHTML +=
+            '<i style= "background:' +colors[i] + '"><i>'
+            + magnitudes[i] + (magnitudes[i+1] ? '&ndash;' + magnitudes[i+1] + '<br>' : '+')
+          }
+          
+      return div;
+  
+  
+  }
+  
+  
 
 
 
@@ -211,6 +236,38 @@ legend.onAdd = function(map) {
 
   // Finally, we our legend to the map.
   legend.addTo(map);
+
+
+
+
+  var legend1 = L.control({position:'bottomleft'});
+
+  legend1.onAdd = function(majorEarthquakes){
+  
+  
+      var div =L.DomUtil.create('div','info Legend');
+      let magnitudes = [0,4,5];
+      let colors = [
+        "#98ee00",
+        "#d4ee00",
+        "#eecc00",
+        "#ea822c"
+        
+      ];
+      
+          for(var i=0;i<magnitudes.length;i++){
+            div.innerHTML +=
+            '<i style= "background:' +colors[i] + '"><i>'
+            + magnitudes[i] + (magnitudes[i+1] ? '&ndash;' + magnitudes[i+1] + '<br>' : '+')
+          }
+          
+      return div;
+  
+  
+  }
+  
+  
+
 
 
   // Use d3.json to make a call to get our Tectonic Plate geoJSON data.
