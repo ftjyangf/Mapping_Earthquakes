@@ -13,13 +13,18 @@ let satelliteStreets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/sate
 	maxZoom: 18,
 	accessToken: API_KEY
 });
-
+let dark = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+	maxZoom: 18,
+	accessToken: API_KEY
+});
 // Create the map object with center, zoom level and default layer.
 
 // Create a base layer that holds all three maps.
 let baseMaps = {
   "Streets": streets,
-  "Satellite": satelliteStreets
+  "Satellite": satelliteStreets,
+  "dark":dark
 };
 
 // 1. Add a 3rd layer group for the major earthquake data.
@@ -217,7 +222,7 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geoj
       
           for(var i=0;i<magnitudes.length;i++){
             div.innerHTML +=
-            '<i style= "background:' +colors[i] + '"><i>'
+            '<i style= "background:' +colors[i] + '"></i> '
             + magnitudes[i] + (magnitudes[i+1] ? '&ndash;' + magnitudes[i+1] + '<br>' : '+')
           }
           
@@ -257,8 +262,8 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geoj
       
           for(var i=0;i<magnitudes.length;i++){
             div.innerHTML +=
-            '<i style= "background:' +colors[i] + '"><i>'
-            + magnitudes[i] + (magnitudes[i+1] ? '&ndash;' + magnitudes[i+1] + '<br>' : '+')
+            '<i style="background:' + magnitudes([i] + 1) + ';"></i> ' +
+            magnitudes[i] + (magnitudes[i + 1] ? '&ndash;' + magnitudes[i + 1] + '<br>' : '+');
           }
           
       return div;
